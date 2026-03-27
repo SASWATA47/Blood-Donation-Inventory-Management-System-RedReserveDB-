@@ -14,4 +14,12 @@ export const requestBlood = (requestData) => API.post('/requests/new', requestDa
 // though template literals (`/queries/execute/${queryId}`) are generally preferred!
 export const executeQuery = (queryId) => API.get('/queries/execute/' + queryId); 
 
+// Add these to your existing api.js
+export const insertRecord = (tableName, data) => API.post(`/queries/table/${tableName}`, data);
+export const updateRecord = (tableName, data, pkData) => API.put(`/queries/table/${tableName}`, { data, pkData });
+export const deleteRecord = async (tableName, pkData) => {
+    return await axios.delete(`http://localhost:5000/api/queries/delete/${tableName}`, { // <-- adjust the base URL to match your app!
+        data: { pkData } 
+    });
+};
 export default API;
